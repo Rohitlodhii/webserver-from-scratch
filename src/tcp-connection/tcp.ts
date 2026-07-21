@@ -1,4 +1,4 @@
-import { httpParser } from "../http-parser/getRequest";
+import { httpParser } from "../http-parser/parser";
 import { router } from "../router/router";
 
 
@@ -16,14 +16,15 @@ export const server = net.createServer(( socket : any ) => {
         const rawRequest  = chunk.toString();
         const { method , path , version , headers, body } : any = httpParser(rawRequest);
 
-        console.log(method);
-        console.log(path);
-        console.log(body);
+        const { responseHeader , responseBody } : any = router(method , path ,body);
 
-        const { ResponseHeader , ResponseBody } : any = router(method , path ,body);
+        if(!responseHeader){
+            console.log(responseHeader + "NOT FOUND")
+            return;
+        }
 
-        socket.write(ResponseHeader);
-        socket.write(ResponseBody);
+        socket.write(responseHeader);
+        socket.write(responseBody);
         // socket.end();
     });
 

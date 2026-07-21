@@ -1,11 +1,25 @@
 import { getResponseBody, getResponseHeader } from "../response/getResponse"
 
 
-export const router = ( method : any , path : any , body : any) => {
+type RouterResponse = {
+    responseHeader : string ;
+    responseBody : string;
+}
+
+export const router = ( method : string , path : string , body : string) : RouterResponse  => {
     if( method === 'GET'){
         switch( path ){
+            default:
+                return {
+                    responseHeader : "N" , responseBody : 'N'
+                }
             case '/':
-                return { ResponseHeader : getResponseHeader , ResponseBody:getResponseBody};
+                return { responseHeader : getResponseHeader , responseBody : getResponseBody};
+        }
+    }
+    else {
+        return {
+            responseHeader : "N" , responseBody : 'N'
         }
     }
 }

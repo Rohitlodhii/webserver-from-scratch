@@ -2,7 +2,7 @@
 
 
  const getReqdata = {
-    "name" : "Rohit",
+    "name" : "Ramesh",
     "age" : 21
 }
 
