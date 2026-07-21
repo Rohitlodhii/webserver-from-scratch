@@ -1,4 +1,5 @@
 import { getResponseBody, getResponseHeader } from "../response/getResponse"
+import { postResponse } from "../response/postResponse";
 
 
 type RouterResponse = {
@@ -15,6 +16,16 @@ export const router = ( method : string , path : string , body : string) : Route
                 }
             case '/':
                 return { responseHeader : getResponseHeader , responseBody : getResponseBody};
+        }
+    } else if ( method === 'POST'){
+        switch (path){
+            default:
+                return {
+                    responseHeader : "N" , responseBody : 'N'
+                }
+            case '/':
+                const { responseHeader , responseBody } = postResponse(body);
+                return { responseHeader , responseBody };
         }
     }
     else {
