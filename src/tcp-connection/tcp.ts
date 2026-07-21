@@ -9,7 +9,6 @@ export const server = net.createServer(( socket : any ) => {
 
     socket.on("data" , (chunk : any)=>{
 
-            // console.log(chunk.toString());
         if(!chunk){
             return;
         }
@@ -17,7 +16,7 @@ export const server = net.createServer(( socket : any ) => {
 
         socket.write(responseHeader);
         socket.write(responseBody);
-        // socket.end();
+        
     });
 
     

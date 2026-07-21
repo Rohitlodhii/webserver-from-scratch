@@ -76,6 +76,49 @@ export const router = ( chunk : any ) : RouterResponse => {
 }
 
 
+type Method = "GET" | "POST";
+
+interface Request {
+    method : Method ;
+    path : string ;
+    body : string ;
+}
+
+interface Response {
+    responseHeader : string ;
+    responseBody : string ;
+}
+
+type Handler = ( req : Request ) => Response ;
+
+
+class Router {
+
+        private routes = new Map<Method, Map< string , Handler>>();
+
+
+        
+
+        register ( method : Method , path : string , handler : Handler ){
+                if(!this.routes.has(method)){
+                    this.routes.set(method , new Map<string , Handler>());
+                }
+
+                const methodRoutes = this.routes.get(method)!;
+                methodRoutes.set(path , handler);
+        }
+
+        match ( method : Method , path : string ) : Handler | undefined {
+                const methodMap = this.routes.get(method);
+                if(!methodMap){
+                    return undefined;
+                }
+                return methodMap.get(path);
+        }
+
+}
+
+
 
 
 
