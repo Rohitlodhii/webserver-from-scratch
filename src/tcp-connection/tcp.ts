@@ -13,15 +13,7 @@ export const server = net.createServer(( socket : any ) => {
         if(!chunk){
             return;
         }
-        const rawRequest  = chunk.toString();
-        const { method , path , version , headers, body } : any = httpParser(rawRequest);
-
-        const { responseHeader , responseBody } : any = router(method , path ,body);
-
-        if(!responseHeader){
-            console.log(responseHeader + "NOT FOUND")
-            return;
-        }
+        const { responseHeader , responseBody } : any = router(chunk);
 
         socket.write(responseHeader);
         socket.write(responseBody);
